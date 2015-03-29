@@ -22,9 +22,15 @@ c.arc(120, 120, 100, Math.PI*2, false);
 c.fillStyle = grd;
 c.fill();
 
-
-
 // make some stars
+var stars = function(){
+	c.beginPath();
+	c.arc(200, 200, 5, Math.PI*2, false);
+	c.fillStyle = "rgba(255,255,255,0.5)";
+	c.fill();
+};
+
+
 
 
 };
