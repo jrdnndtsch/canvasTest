@@ -22,13 +22,41 @@ c.arc(120, 120, 100, Math.PI*2, false);
 c.fillStyle = grd;
 c.fill();
 
-// make some stars
-var stars = function(){
+// make a star prototype
+var stars = {};
+starIndex = 0;
+starNum = 100;
+function Star(){
+	this.x = canvas.width / 2;
+	this.y = canvas.height / 2;
+	this.rx = Math.random()*(canvas.width);
+	this.ry = Math.random()*(canvas.height);
+	starIndex++;
+	stars[starIndex]= this;
+	this.id = starIndex;
+};
+Star.prototype.draw = function(){
+	var merpx = 0;
+	merpy = 0;
+	merpx += this.rx;
+	merpy += this.ry;
 	c.beginPath();
-	c.arc(200, 200, 5, Math.PI*2, false);
-	c.fillStyle = "rgba(255,255,255,0.5)";
+	c.arc(merpx, merpy, 2, Math.PI*2, false);
+	c.fillStyle = "rgba(255,255,255,0.6)";
 	c.fill();
 };
+
+var s = new Star();
+
+function makeStars(){
+	for(var i = 0; i < starNum; i++){
+		new Star();
+	};
+	for(var i in stars){
+		stars[i].draw();
+	};
+};
+makeStars();
 
 
 
