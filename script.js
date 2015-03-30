@@ -59,7 +59,7 @@ function makeStars(){
 makeStars();
 
 //radial gradient
-var grd = c.createRadialGradient(500,300,70,500,300,100);
+var grd = c.createRadialGradient(500,300,70,500,300,160);
 grd.addColorStop(0,"rgba(255,215,0, 1)");
 grd.addColorStop(1,"rgba(255,215,0,0.4)");
 
@@ -68,7 +68,7 @@ grd.addColorStop(1,"rgba(255,215,0,0.4)");
 var sun = {
 	x: 500,
 	y: 300,
-	r: 100,
+	r: 160,
 	makeSun: function(){
 	c.beginPath();
 	c.arc(this.x, this.y, this.r, Math.PI*2, false);
@@ -79,8 +79,8 @@ var sun = {
 
 //make televistion
 var tv = {
-	x: 200,
-	y: 200,
+	x: 100,
+	y: 100,
 	w: 120,
 	h: 100,
 	imageObj: new Image(),
@@ -93,8 +93,8 @@ var tv = {
 var george = {
 	x: canvas.width - 300,
 	y: canvas.height - 200,
-	w: 400,
-	h: 200,
+	w: 180,
+	h: 87,
 	speed: 2,
 	left: false,
 	right: false,
@@ -198,6 +198,42 @@ function tooClose(){
 	}
 };
 
+function youWin(){
+	if(george.y > tv.y 
+	&& george.y < (tv.y + tv.h)
+	&& george.x > tv.x
+	&& george.x < (tv.x + tv.w)){
+		alert('You did it! You can have your cake and eat it too');
+		window.location.reload();	
+	}else if((george.y + george.h) > tv.y
+	&& (george.y + george.h) < (tv.y + tv.h)
+	&& (george.x + george.w) > tv.x
+	&& (george.x + george.w) < (tv.x + tv.w)
+	 ){
+		alert('You did it! You can have your cake and eat it too');
+		window.location.reload();
+	}
+	else if((george.y + george.h) > tv.y
+	&& (george.y + george.h) < (tv.y + tv.h)
+	&& george.x > tv.x
+	&& george.x < (tv.x + tv.w)
+	){
+		alert('You did it! You can have your cake and eat it too');
+		window.location.reload();
+	}
+	else if(george.y > tv.y 
+	&& george.y < (tv.y + tv.h)
+	&& (george.x + george.w) > tv.x
+	&& (george.x + george.w) < (tv.x + tv.w)
+	){
+		alert('You did it! You can have your cake and eat it too');
+		
+		window.location.reload();
+
+	}
+};
+
+
 function update(){
 	c.fillStyle = "rgb(0, 0, 51)";
 	c.fillRect(0, 0, canvas.width, canvas.height);
@@ -207,6 +243,7 @@ function update(){
 	george.paint();
 	keys.checkKeys();
 	tooClose();
+	youWin();
 	requestAnimationFrame(update);
 	
 };
