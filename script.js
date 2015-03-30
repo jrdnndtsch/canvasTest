@@ -1,11 +1,12 @@
 
-window.onload = function(){
 
+$('.play').on('click', function(){
+$('.directions').addClass('hide');
 //make the canvas
 canvas = document.createElement('canvas');
 	c = canvas.getContext("2d");
-	canvas.width = 1200;
-	canvas.height = 600;
+	canvas.width = $(window).width();
+	canvas.height = $(window).height();
 	
 		
 document.body.appendChild(canvas);
@@ -28,7 +29,7 @@ function Star(){
 	stars[starIndex]= this;
 	this.id = starIndex;
 	this.life = 0;
-	this.maxLife = 400;
+	this.maxLife = 100;
 };
 Star.prototype.draw = function(){
 	var merpx = 0;
@@ -64,20 +65,36 @@ grd.addColorStop(1,"rgba(255,215,0,0.4)");
 
 
 //make a circle (the sun)
-function makeSun(){
-c.beginPath();
-c.arc(500, 300, 100, Math.PI*2, false);
-c.fillStyle = grd;
-c.fill();
-	
-};
+var sun = {
+	x: 500,
+	y: 300,
+	r: 100,
+	makeSun: function(){
+	c.beginPath();
+	c.arc(this.x, this.y, this.r, Math.PI*2, false);
+	c.fillStyle = grd;
+	c.fill();	
+	}
+}
 
+//make televistion
+var tv = {
+	x: 200,
+	y: 200,
+	w: 120,
+	h: 100,
+	imageObj: new Image(),
+	paint: function(){
+		this.imageObj.src = 'television.png';
+		c.drawImage(this.imageObj, this.x, this.y, this.w, this.h);
+	}
+}
 //make George
 var george = {
 	x: canvas.width - 300,
 	y: canvas.height - 200,
-	w: 200,
-	h: 100,
+	w: 400,
+	h: 200,
 	speed: 2,
 	left: false,
 	right: false,
@@ -85,15 +102,11 @@ var george = {
 	down: false,
 	imageObj: new Image(),
 	paint: function(){
-		c.fillStyle = "#ffffff";
-		c.fillRect(this.x, this.y, this.w, this.h);
-		// var imageObj = new Image();
-		// 	var x = canvas.width - 400;
-		// 		y = canvas.height - 300;
-		//     imageObj.onload = function() {
-		//         c.drawImage(imageObj, x, y);
-		//     };
-		//     imageObj.src = 'george.png';
+		//c.fillStyle = "#ffffff";
+		//c.fillRect(this.x, this.y, this.w, this.h);
+		this.imageObj.src = 'george.png';
+		c.drawImage(this.imageObj, this.x, this.y, this.w, this.h);
+
 	}
 }
 
@@ -150,13 +163,50 @@ var keys = {
 	}
 }
 
+function tooClose(){
+	if(george.y > (sun.y - sun.r) 
+	&& george.y < (sun.y + sun.r) 
+	&& george.x > (sun.x - sun.r)
+	&& george.x < (sun.x + sun.r)){
+		alert('You flew too close to the sun on wings of pastrami');
+		window.location.reload();
+	}else if((george.y + george.h) > (sun.y - sun.r) 
+	&& (george.y + george.h) < (sun.y + sun.r)
+	&& (george.x + george.w) > (sun.x - sun.r)
+	&& (george.x + george.w) < (sun.x + sun.r)
+	 ){
+		alert('You flew too close to the sun on wings of pastrami');
+		window.location.reload();
+	}
+	else if((george.y + george.h) > (sun.y - sun.r) 
+	&& (george.y + george.h) < (sun.y + sun.r)
+	&& george.x > (sun.x - sun.r)
+	&& george.x < (sun.x + sun.r)
+	){
+		alert('You flew too close to the sun on wings of pastrami');
+		window.location.reload();
+	}
+	else if(george.y > (sun.y - sun.r) 
+	&& george.y < (sun.y + sun.r)
+	&& (george.x + george.w) > (sun.x - sun.r)
+	&& (george.x + george.w) < (sun.x + sun.r)
+	){
+		alert('You flew too close to the sun on wings of pastrami');
+		
+		window.location.reload();
+
+	}
+};
+
 function update(){
 	c.fillStyle = "rgb(0, 0, 51)";
 	c.fillRect(0, 0, canvas.width, canvas.height);
 	makeStars();
-	makeSun();
+	sun.makeSun();
+	tv.paint();
 	george.paint();
 	keys.checkKeys();
+	tooClose();
 	requestAnimationFrame(update);
 	
 };
@@ -170,6 +220,6 @@ function init(){
 init();
 
 
-};
+});
 
 
