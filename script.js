@@ -233,6 +233,19 @@ function youWin(){
 	}
 };
 
+function cake(){
+	var centerX = george.x + (george.w / 2);
+		centerY = george.y + (george.h / 2);
+	if(centerY > tv.y 
+	&& centerY < (tv.y + tv.h)
+	&& centerX > tv.x
+	&& centerX < (tv.x + tv.w)){
+		alert('You did it! You can have your cake and eat it too');
+		window.location.reload();	
+	}	
+}
+
+
 
 function update(){
 	c.fillStyle = "rgb(0, 0, 51)";
@@ -243,7 +256,8 @@ function update(){
 	george.paint();
 	keys.checkKeys();
 	tooClose();
-	youWin();
+	//youWin();
+	cake();
 	requestAnimationFrame(update);
 	
 };
