@@ -58,7 +58,7 @@ function makeStars(){
 makeStars();
 
 //radial gradient
-var grd = c.createRadialGradient(120,120,70,120,120,100);
+var grd = c.createRadialGradient(500,300,70,500,300,100);
 grd.addColorStop(0,"rgba(255,215,0, 1)");
 grd.addColorStop(1,"rgba(255,215,0,0.4)");
 
@@ -66,7 +66,7 @@ grd.addColorStop(1,"rgba(255,215,0,0.4)");
 //make a circle (the sun)
 function makeSun(){
 c.beginPath();
-c.arc(120, 120, 100, Math.PI*2, false);
+c.arc(500, 300, 100, Math.PI*2, false);
 c.fillStyle = grd;
 c.fill();
 	
@@ -78,7 +78,7 @@ var george = {
 	y: canvas.height - 200,
 	w: 200,
 	h: 100,
-	speed: 5,
+	speed: 2,
 	left: false,
 	right: false,
 	up: false,
@@ -164,7 +164,7 @@ function update(){
 function init(){
 	window.addEventListener('keydown', keys.keyDown);
 	window.addEventListener('keyup', keys.keyUp);
-	requestAnimationFrame(update());
+	requestAnimationFrame(update);
 };
 
 init();
